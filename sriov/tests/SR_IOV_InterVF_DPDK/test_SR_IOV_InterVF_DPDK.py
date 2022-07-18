@@ -39,7 +39,7 @@ def test_SR_IOV_InterVF_DPDK(dut, settings, testdata, spoof,
     ]
     for step in steps:
         print(step)
-        code, out, err = dut.execute(step)
+        code, out, err = dut.execute(step, 5)
         assert code == 0, err
         time.sleep(1)
     
@@ -62,8 +62,9 @@ def test_SR_IOV_InterVF_DPDK(dut, settings, testdata, spoof,
         print(step)
         code, out, err = dut.execute(step)
         assert code == 0, err
-        time.sleep(0.1)
+        time.sleep(0.5)
 
+    time.sleep(3)
     # bind VF0 to vfio-pci
     vf_pci = settings.config["dut"]["interface"]["vf1"]["pci"]
     assert bind_driver(dut, vf_pci, "vfio-pci")
