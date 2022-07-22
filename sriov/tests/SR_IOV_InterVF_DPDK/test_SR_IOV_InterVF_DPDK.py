@@ -39,10 +39,12 @@ def test_SR_IOV_InterVF_DPDK(dut, settings, testdata, spoof,
     ]
     for step in steps:
         print(step)
-        code, out, err = dut.execute(step, 5)
+        code, out, err = dut.execute(step)
         assert code == 0, err
         time.sleep(1)
     
+    assert vfs_created(dut, pf, 2)
+
     steps = [] 
     for i in range(2):
         steps.extend([
